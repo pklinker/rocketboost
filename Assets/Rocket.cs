@@ -18,20 +18,37 @@ public class Rocket : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        ProcessInput();
+        ApplyThrust();
+        Rotate();
     }
 
-    private void ProcessInput()
+    /**
+     * Apply thrust and play effects/sounds.
+     */
+    private void ApplyThrust()
     {
         if (Input.GetKey(KeyCode.Space))
         {
-            ApplyThrust();
+            Vector3 force = Vector3.up;
+            // add thrust
+            rigidBody.AddRelativeForce(force);
+            if (!engineAudioSource.isPlaying)
+                engineAudioSource.Play();
         }
         else if (Input.GetKeyUp(KeyCode.Space))
         {
             // turn off engine noise when thrusters stop
             engineAudioSource.Stop();
         }
+       
+    }
+
+    /**
+     * Rotate the rocket based on input.
+     */
+    private void Rotate()
+    {
+        rigidBody.freezeRotation = true; // take manual control of rotation
         if (Input.GetKey(KeyCode.A))
         {
             // Rotating Left
@@ -42,17 +59,9 @@ public class Rocket : MonoBehaviour
             // Rotating Right
             transform.Rotate(-Vector3.forward);
         }
+        rigidBody.freezeRotation = false; // resume physics control of rotation
+
     }
 
-    /**
-     * Apply thrust and play effects/sounds.
-     */
-    private void ApplyThrust()
-    {
-        Vector3 force = Vector3.up;
-        // add thrust
-        rigidBody.AddRelativeForce(force);
-        if (!engineAudioSource.isPlaying)
-            engineAudioSource.Play();
-    }
+
 }
