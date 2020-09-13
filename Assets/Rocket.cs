@@ -60,7 +60,7 @@ public class Rocket : MonoBehaviour
             transform.Rotate(-Vector3.forward);
         }
         rigidBody.freezeRotation = false; // resume physics control of rotation
-
+        rigidBody.constraints =  RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationY | RigidbodyConstraints.FreezePositionZ;
     }
 
 
