@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Friendly
   - Fuel
+  - Enemy
   layers:
   - Default
   - TransparentFX

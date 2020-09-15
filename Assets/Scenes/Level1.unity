@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 705507994}
-  m_IndirectSpecularColor: {r: 0, g: 0, b: 0, a: 1}
+  m_IndirectSpecularColor: {r: 0.448664, g: 0.49871778, b: 0.5756769, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -97,7 +97,7 @@ LightmapSettings:
     m_ExportTrainingData: 0
     m_TrainingDataDestination: TrainingData
     m_LightProbeSampleCountMultiplier: 4
-  m_LightingDataAsset: {fileID: 0}
+  m_LightingDataAsset: {fileID: 112000000, guid: 4230d2cd4ed11a94e8ea134f9b0e7c6a, type: 2}
   m_LightingSettings: {fileID: 1057490881}
 --- !u!196 &4
 NavMeshSettings:
@@ -536,7 +536,7 @@ GameObject:
   - component: {fileID: 336747716}
   m_Layer: 0
   m_Name: Teeth (0)
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -916,7 +916,7 @@ GameObject:
   - component: {fileID: 660000990}
   m_Layer: 0
   m_Name: Obstacle (0)
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1111,7 +1111,7 @@ GameObject:
   - component: {fileID: 764039987}
   m_Layer: 0
   m_Name: Teeth (1)
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1206,7 +1206,7 @@ GameObject:
   - component: {fileID: 828065070}
   m_Layer: 0
   m_Name: Obstacle (1)
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1679,7 +1679,7 @@ GameObject:
   - component: {fileID: 1069684508}
   m_Layer: 0
   m_Name: Obstacle (8)
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1941,7 +1941,7 @@ GameObject:
   - component: {fileID: 1248386266}
   m_Layer: 0
   m_Name: Obstacle (2)
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2999,9 +2999,17 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1349714310669080073, guid: 3ad283d3d0ad1c440970e6e94ca4fa5c, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 29.74
+      objectReference: {fileID: 0}
     - target: {fileID: 3411848527396906392, guid: 3ad283d3d0ad1c440970e6e94ca4fa5c, type: 3}
       propertyPath: m_Name
       value: Hangar
+      objectReference: {fileID: 0}
+    - target: {fileID: 3411848527396906392, guid: 3ad283d3d0ad1c440970e6e94ca4fa5c, type: 3}
+      propertyPath: m_TagString
+      value: Enemy
       objectReference: {fileID: 0}
     - target: {fileID: 3411848527396906393, guid: 3ad283d3d0ad1c440970e6e94ca4fa5c, type: 3}
       propertyPath: m_LocalPosition.x
@@ -3286,14 +3294,6 @@ PrefabInstance:
     - target: {fileID: 657929766119579433, guid: 08baaefa85e5f4343bf45257f96469fc, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 657929766119579433, guid: 08baaefa85e5f4343bf45257f96469fc, type: 3}
-      propertyPath: m_LocalScale.x
-      value: 5.2496
-      objectReference: {fileID: 0}
-    - target: {fileID: 657929766119579433, guid: 08baaefa85e5f4343bf45257f96469fc, type: 3}
-      propertyPath: m_LocalScale.z
-      value: 5.5448318
       objectReference: {fileID: 0}
     - target: {fileID: 3140473152481521160, guid: 08baaefa85e5f4343bf45257f96469fc, type: 3}
       propertyPath: m_Name

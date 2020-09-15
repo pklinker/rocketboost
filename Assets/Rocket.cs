@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor.SceneManagement;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class Rocket : MonoBehaviour
 {
@@ -9,6 +11,9 @@ public class Rocket : MonoBehaviour
     AudioSource engineAudioSource;
     [SerializeField] float rcsThrust = 125;
     [SerializeField] float mainThrust = 1.9f;
+
+    enum State { Alive, Dying, Transcending }
+    State state = State.Alive;
 
     // Start is called before the first frame update
     void Start()
@@ -20,8 +25,11 @@ public class Rocket : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        ApplyThrust();
-        Rotate();
+        if (state == State.Alive)
+        {
+            ApplyThrust();
+            Rotate();
+        }
     }
 
     /**
@@ -71,6 +79,11 @@ public class Rocket : MonoBehaviour
 
     void OnCollisionEnter(Collision collision)
     {
+        if (state != State.Alive)
+        {
+            return;
+        }
+
         switch (collision.gameObject.tag)
         {
             case "Friendly":
@@ -81,8 +94,17 @@ public class Rocket : MonoBehaviour
                 // refuel rocket
                 print("fuel");
                 break;
+            case "Finish":
+                print("Player finished.");
+                state = State.Transcending;
+                float timeInSec = 1f;
+                Invoke("LoadNextScene", timeInSec); //parameterize time
+                break;
             default:
                 // kill player
+                state = State.Dying;
+                timeInSec = 1f;
+                Invoke("LoadDyingScene", timeInSec); //parameterize time
                 print("boom");
                 break;
         }
@@ -94,4 +116,16 @@ public class Rocket : MonoBehaviour
      //       audioSource.Play();
     }
 
+    private void LoadDyingScene()
+    {
+        SceneManager.LoadScene(0);
+        engineAudioSource.Stop();
+        state = State.Alive;
+    }
+
+    private void LoadNextScene()
+    {
+        SceneManager.LoadScene(1);
+        state = State.Alive;
+    }
 }
