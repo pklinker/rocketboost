@@ -14,7 +14,9 @@ public class Rocket : MonoBehaviour
     [SerializeField] AudioClip mainEngineThrustAC;
     [SerializeField] AudioClip deathExplosionAC;
     [SerializeField] AudioClip levelLoadAC;
-
+    [SerializeField] ParticleSystem mainEngineThrustPS;
+    [SerializeField] ParticleSystem deathExplosionPS;
+    [SerializeField] ParticleSystem levelLoadPS;
     enum State { Alive, Dying, Transcending }
     State state = State.Alive;
 
@@ -45,6 +47,8 @@ public class Rocket : MonoBehaviour
         {
             // turn off engine noise when thrusters stop
             audioSource.Stop();
+            mainEngineThrustPS.Stop();
+
         }
     }
 
@@ -58,6 +62,7 @@ public class Rocket : MonoBehaviour
         rigidBody.AddRelativeForce(force);
         if (!audioSource.isPlaying)
             audioSource.PlayOneShot(mainEngineThrustAC);
+        mainEngineThrustPS.Play();
     }
 
     /**
@@ -102,21 +107,16 @@ public class Rocket : MonoBehaviour
                 print("fuel");
                 break;
             case "Finish":
-                print("Player finished.");
-                audioSource.Stop();
-                audioSource.PlayOneShot(levelLoadAC);
-                state = State.Transcending;
+                PlayFinishEffects();
                 float timeInSec = 1f;
                 Invoke("LoadNextScene", timeInSec); //parameterize time
                 break;
             default:
                 // kill player
-                audioSource.Stop();
-                audioSource.PlayOneShot(deathExplosionAC);
-                state = State.Dying;
+                PlayDeathEffects();
                 timeInSec = 1f;
                 Invoke("LoadDyingScene", timeInSec); //parameterize time
-                print("boom");
+
                 break;
         }
         foreach (ContactPoint contact in collision.contacts)
@@ -125,6 +125,24 @@ public class Rocket : MonoBehaviour
         }
      //   if (collision.relativeVelocity.magnitude > 2)
      //       audioSource.Play();
+    }
+
+    private void PlayDeathEffects()
+    {
+        audioSource.Stop();
+        audioSource.PlayOneShot(deathExplosionAC);
+        deathExplosionPS.Play();
+        state = State.Dying;
+        print("boom");
+    }
+
+    private void PlayFinishEffects()
+    {
+        print("Player finished.");
+        audioSource.Stop();
+        audioSource.PlayOneShot(levelLoadAC);
+        levelLoadPS.Play();
+        state = State.Transcending;
     }
 
     private void LoadDyingScene()

@@ -1864,25 +1864,25 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 1246189705, guid: c0f25aab1521e7b4cbc6e83a6f0e2b44, type: 3}
-      propertyPath: rcsThrust
-      value: 125
+    - target: {fileID: 4940885193812251, guid: c0f25aab1521e7b4cbc6e83a6f0e2b44, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.63
       objectReference: {fileID: 0}
-    - target: {fileID: 1246189705, guid: c0f25aab1521e7b4cbc6e83a6f0e2b44, type: 3}
-      propertyPath: mainThrust
-      value: 1.9
+    - target: {fileID: 198100718825857875, guid: c0f25aab1521e7b4cbc6e83a6f0e2b44, type: 3}
+      propertyPath: prewarm
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6470297072714184372, guid: c0f25aab1521e7b4cbc6e83a6f0e2b44, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -21.390583
+      value: -22.13
       objectReference: {fileID: 0}
     - target: {fileID: 6470297072714184372, guid: c0f25aab1521e7b4cbc6e83a6f0e2b44, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.49243164
+      value: 0.01
       objectReference: {fileID: 0}
     - target: {fileID: 6470297072714184372, guid: c0f25aab1521e7b4cbc6e83a6f0e2b44, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -2
+      value: -0.81
       objectReference: {fileID: 0}
     - target: {fileID: 6470297072714184372, guid: c0f25aab1521e7b4cbc6e83a6f0e2b44, type: 3}
       propertyPath: m_LocalRotation.x
