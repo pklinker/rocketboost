@@ -10,7 +10,10 @@ public class Rocket : MonoBehaviour
     Rigidbody rigidBody;
     AudioSource audioSource;
     [SerializeField] float rcsThrust = 125;
-    [SerializeField] float mainThrust = 1.9f;
+    [SerializeField] float mainThrust = 900;
+    [SerializeField]
+    float levelLoadDelay = 1f; // time is in seconds.
+
     [SerializeField] AudioClip mainEngineThrustAC;
     [SerializeField] AudioClip deathExplosionAC;
     [SerializeField] AudioClip levelLoadAC;
@@ -57,7 +60,7 @@ public class Rocket : MonoBehaviour
      */
     private void ApplyThrust()
     {
-        Vector3 force = Vector3.up * mainThrust;
+        Vector3 force = Vector3.up * mainThrust*Time.deltaTime;
         // add thrust
         rigidBody.AddRelativeForce(force);
         if (!audioSource.isPlaying)
@@ -108,14 +111,12 @@ public class Rocket : MonoBehaviour
                 break;
             case "Finish":
                 PlayFinishEffects();
-                float timeInSec = 1f;
-                Invoke("LoadNextScene", timeInSec); //parameterize time
+                Invoke("LoadNextScene", levelLoadDelay); //parameterize time
                 break;
             default:
                 // kill player
                 PlayDeathEffects();
-                timeInSec = 1f;
-                Invoke("LoadDyingScene", timeInSec); //parameterize time
+                Invoke("LoadDyingScene", levelLoadDelay); //parameterize time
 
                 break;
         }
