@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using UnityEditor.SceneManagement;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class Rocket : MonoBehaviour
@@ -21,26 +17,48 @@ public class Rocket : MonoBehaviour
     [SerializeField] ParticleSystem deathExplosionPS;
     [SerializeField] ParticleSystem levelLoadPS;
     enum State { Alive, Dying, Transcending }
+    
     State state = State.Alive;
+    bool collisionOff;
 
     // Start is called before the first frame update
     void Start()
     {
         rigidBody = GetComponent<Rigidbody>();
         audioSource = GetComponent<AudioSource>();
+        collisionOff = false;
     }
 
     // Update is called once per frame
     void Update()
     {
+        if (Debug.isDebugBuild)
+        {
+            DebugKeys();
+        }
         if (state == State.Alive)
         {
             RespondToThrustInput();
             RespondToRotateInput();
         }
+
+
     }
 
-     private void RespondToThrustInput()
+    private void DebugKeys()
+    {
+        if (Input.GetKeyDown(KeyCode.C))
+        {
+            collisionOff = !collisionOff;
+        }
+        else if (Input.GetKeyDown(KeyCode.L))
+        {
+            LoadNextScene();
+        }
+       
+    }
+
+    private void RespondToThrustInput()
     {
         if (Input.GetKey(KeyCode.Space))
         {
@@ -76,7 +94,8 @@ public class Rocket : MonoBehaviour
         
         float rotationThisFrame = rcsThrust * Time.deltaTime;
 
-        rigidBody.freezeRotation = true; // take manual control of rotation
+        //rigidBody.freezeRotation = true; // take manual control of rotation
+        rigidBody.angularVelocity = Vector3.zero; // remove rotation because of physics
         if (Input.GetKey(KeyCode.A))
         {
             
@@ -88,13 +107,13 @@ public class Rocket : MonoBehaviour
             // Rotating Right
             transform.Rotate(-Vector3.forward * rotationThisFrame);
         }
-        rigidBody.freezeRotation = false; // resume physics control of rotation
-        rigidBody.constraints =  RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationY | RigidbodyConstraints.FreezePositionZ;
+     //   rigidBody.freezeRotation = false; // resume physics control of rotation
+      //  rigidBody.constraints =  RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationY | RigidbodyConstraints.FreezePositionZ;
     }
 
     void OnCollisionEnter(Collision collision)
     {
-        if (state != State.Alive)
+        if ((state != State.Alive) || (collisionOff))
         {
             return;
         }
@@ -154,7 +173,9 @@ public class Rocket : MonoBehaviour
 
     private void LoadNextScene()
     {
-        SceneManager.LoadScene(1);
+        int currentSceneIndex = SceneManager.GetActiveScene().buildIndex;
+        int currentSceneNum = ((currentSceneIndex + 1) % (SceneManager.sceneCountInBuildSettings));
+        SceneManager.LoadScene(currentSceneNum);
         state = State.Alive;
     }
 }
